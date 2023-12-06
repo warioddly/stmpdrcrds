@@ -3,9 +3,6 @@ import * as THREE from 'three';
 // GUI
 import {GUI} from 'three/examples/jsm/libs/lil-gui.module.min.js';
 
-export interface PlaylistCallback {
-    video: THREE.VideoTexture;
-}
 
 export class Playlist {
 
@@ -16,7 +13,7 @@ export class Playlist {
         'ZOOTAH - Cupcakes.mp4',
     ];
 
-    constructor(callback: (data: PlaylistCallback) => void) {
+    constructor(callback: (data: THREE.VideoTexture) => void) {
 
         const that = this;
 
@@ -24,25 +21,23 @@ export class Playlist {
 
         const playlist = gui.addFolder('Playlist');
 
-        playlist.add(this, '_playlist', this._playlist).onChange(function (value) {
+        playlist.add(this, '_playlist', this._playlist).onChange(function (value: string) {
             that._loadVideo(value);
-            callback({video: that.video});
+            callback(that.video);
         });
 
     }
 
     private _loadVideo(video: string) {
 
-        this.video = new THREE.VideoTexture( document.createElement( 'video' ) );
-        this.video.crossOrigin = 'anonymous';
-
         const videoElement = document.createElement( 'video' );
         videoElement.src = require('./assets/music/' + video);
         videoElement.loop = true;
         videoElement.setAttribute( 'webkit-playsinline', 'webkit-playsinline' );
-        videoElement.play();
+        // create playback
+        // videoElement.play();
 
-        this.video.image = videoElement;
+        this.video = new THREE.VideoTexture( videoElement );
 
     }
 

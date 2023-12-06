@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import {Logo} from "./logo";
 import {Playlist} from "./playlist";
+import {Video} from "./video";
 
 class Engine {
 
@@ -13,6 +14,7 @@ class Engine {
     private _controls: OrbitControls;
     private _logo: Logo;
     private _playlist: Playlist;
+    private _video: Video;
 
     constructor() {
 
@@ -21,7 +23,7 @@ class Engine {
         this._scene.background = new THREE.Color().setHSL( 0.51, 0.4, 0.01, THREE.SRGBColorSpace );
 
         this._camera = new THREE.PerspectiveCamera( 100, window.innerWidth / window.innerHeight, 1.01, 1000 );
-        this._camera.position.z = 100;
+        this._camera.position.z = 80;
 
         this._renderer = new THREE.WebGLRenderer( { antialias: true, } );
         this._renderer.setPixelRatio( window.devicePixelRatio );
@@ -31,7 +33,7 @@ class Engine {
         this._controls = new OrbitControls(this._camera, this._renderer.domElement);
         this._controls.enableDamping = true;
         this._controls.dampingFactor = 0.05;
-        this._controls.minDistance = 20;
+        this._controls.minDistance = 10;
         this._controls.maxDistance = 120;
 
         const ambientLight = new THREE.AmbientLight( 0xffffff, 0.1 );
@@ -40,8 +42,9 @@ class Engine {
         this._logo = new Logo(this._scene);
 
         this._playlist = new Playlist((video: THREE.VideoTexture) => {
-            console.log(video);
+            this._video = new Video(video, this._scene, {});
         });
+
 
         document.body.appendChild( this._renderer.domElement );
 
@@ -53,6 +56,13 @@ class Engine {
 
 
     private _animate( time: number ) {
+
+        if (this._video && this._video.initialized) {
+            this._logo.animate(
+                new Uint8Array(this._video.analyser.getFrequencyData()),
+                time
+            );
+        }
 
         this._controls.update();
 
