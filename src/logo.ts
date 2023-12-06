@@ -7,7 +7,6 @@ import Utils from "./utils";
 export class Logo {
 
 
-    public geometry: THREE.SpherBufferGeometry;
     public mesh: THREE.Mesh;
     private _noise3D: Noise3D = new Noise3D();
     private _utils: any = new Utils();
@@ -31,8 +30,6 @@ export class Logo {
         new PCDLoader().load( require('./assets/objects/logo.pcd'), function (object) {
 
             that.mesh = object;
-
-            that.geometry = that.mesh.geometry;
 
             scene.add(that.mesh);
 
