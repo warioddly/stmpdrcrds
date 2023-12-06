@@ -48,12 +48,18 @@ const config = {
                     filename: 'assets/images/[name][ext]',
                 },
             },
-
             {
-                test: /\.(glsl|vs|fs|vert|frag)$/i,
+                test: /\.(glsl|vs|fs|vert|frag|glb|obj|pcd)$/i,
                 type: 'asset/resource',
                 generator: {
-                    filename: 'assets/shaders/[name][ext]',
+                    filename: 'assets/objects/[name][ext]',
+                },
+            },
+            {
+                test: /\.(mp3|mp4)$/i,
+                type: 'asset/resource',
+                generator: {
+                    filename: 'assets/music/[name][ext]',
                 },
             },
         ],
