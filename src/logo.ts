@@ -12,11 +12,11 @@ export class Logo {
     private _noise3D: Noise3D = new Noise3D();
     private _utils: any = new Utils();
 
+
     private readonly _options: any = {
-        radius: 3,
+        radius: 20,
         detail: 10,
         color: 0x00ff00,
-        wireframe: true,
         amplitude: 15,
         roughness: 0.00001,
         position: { x: 0, y: 0, z: 0 },

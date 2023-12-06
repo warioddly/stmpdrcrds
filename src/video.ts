@@ -38,7 +38,7 @@ export class Video {
             side: THREE.DoubleSide,
         } );
         this._plane = new THREE.Mesh( geometry, material );
-        this._plane.scale.set(0.5, 0.5, 0.5);
+        this._plane.scale.set(2.5, 2.5, .5);
 
         scene.add( this._plane );
 
