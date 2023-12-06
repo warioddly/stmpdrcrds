@@ -14,8 +14,7 @@ export class Logo {
 
 
     private readonly _options: any = {
-        radius: 20,
-        detail: 10,
+        radius: 25,
         color: 0x00ff00,
         amplitude: 15,
         roughness: 0.00001,
